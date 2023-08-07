@@ -2,7 +2,7 @@
   <div>
     <div class="row">
       <div class="col-6">
-        <!-- <deployed-pods> </deployed-pods> -->
+        <deployed-pods ref="deployedPods"> </deployed-pods>
       </div>
       <div class="col-6">
         <clone-request-form> </clone-request-form>

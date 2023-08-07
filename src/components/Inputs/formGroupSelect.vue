@@ -15,7 +15,6 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
 import "vue-select/dist/vue-select.css";
 
 export default {
@@ -23,28 +22,19 @@ export default {
   name: "fg-select",
   data() {
     return {
-        options: [],
         selected: null,
     };
-  },
-  mounted() {
-    this.loadOptions();
-  },
-  methods: {
-    loadOptions() {
-      axios.get('https://kamino.sdc.cpp:8080/templates/guest')
-        .then((response) => {
-            this.options = response.data.message;
-      });
-    },
-    value() {
-      return this.selected;
-    },
   },
   props: {
     label: String,
     placeholder: String,
+    options: Array,
   },
+  method: {
+    value() {
+      return this.selected;
+    },
+  }
 };
 </script>
 <style></style>

@@ -4,7 +4,11 @@
       <form @submit.prevent>
         <div class="row">
           <div class="col-md-12">
-            <fg-select label="Template Name" placeholder="Select a pod..." ref="templateSelect">
+            <fg-select 
+              label="Template Name" 
+              placeholder="Select a pod..." 
+              ref="templateSelect"
+              :options="options">
             </fg-select>
           </div>
         </div>
@@ -19,11 +23,9 @@
     </div>
     <b-modal ref="modal" v-model="modalShow" :title="modalTitle" ok-only>
       <div class="text-center">
-        <b-spinner v-if="modalTitle == 'Deplying Your Pod'" variant="primary" label="Text Centered"></b-spinner>
+        <b-spinner v-if="modalTitle == 'Deploying Your Pod'" variant="primary" label="Text Centered"></b-spinner>
         <div v-else>
-          {{ username }}
-          <hr>
-          {{ password }}
+          {{ modalText }}
         </div>
       </div>
     </b-modal>
@@ -36,32 +38,54 @@ export default {
     return {
       modalShow: false,
       modalTitle: "Deplying Your Pod",
-      username: "",
+      modalText: "",
       password: "",
+      options: [],
     }
   },
+  mounted() {
+    this.loadOptions()
+  },
   methods: {
+    loadOptions() {
+      axios.get('https://bruharmy.sdc.cpp:8080/pods/templates')
+        .then((response) => {
+            this.options = response.data.message;
+      });
+    },
     deployPod() {
-      this.modalTitle = "Deplying Your Pod";
-      this.username = "";
-      this.password = "";
+      this.modalTitle = "Deploying Your Pod";
+      this.modalText = "";
       this.modalShow = true;
-      axios.post('https://kamino.sdc.cpp:8080/clone/ondemand', {
+      axios.post('https://bruharmy.sdc.cpp:8080/pods/clone', {
         template: this.$refs.templateSelect.selected,
         jwtToken: localStorage.getItem("jwtToken")
       })
       .then((response) => {
         console.log("success");
         this.modalTitle = "Your Pod is Ready";
-        this.username = "Your Pod is Ready. Check vSphere for your new pod.";
-        // this.username = response.data.message.username;
-        // this.password = response.data.message.password;
+        this.modalText = "Your Pod is Ready. Check vSphere for your new pod.";
+        this.$root.$emit('loadPods');
+        this.$notify(
+          {
+            message: "Pod deployment is ready",
+            type: 'success',
+            horizontalAlign: 'center',
+            verticalAlign: 'bottom'
+          })
       })
       .catch((error) => {
         this.modalTitle = "Pod Clone Failed";
-        this.username = "Clone failed.";
+        this.modalText = error.response.data.message;
         console.log("error");
         console.error(error);
+        this.$notify(
+          {
+            message: error.response.data.message,
+            type: 'danger',
+            horizontalAlign: 'center',
+            verticalAlign: 'bottom'
+          })
       });
     },
   },

@@ -1,48 +1,58 @@
 <template>
   <card class="card" title="Your Deployed Pods">
     <div >
+      <p v-if="pods.length == 0">
+        You don't have any pods yet.
+      </p>
       <b-tabs pills vertical>
-          <b-tab v-for="i in pods" :key="i.name" :title="i.name">
-            <b-card-text>vSphere Username: {{ i.username }}</b-card-text>
-            <b-card-text>vSphere Password: {{ i.password }}</b-card-text>
+          <b-tab class="flex-nowrap" v-for="i in pods" :key="i" :title="i">
+            <b-card-text>
+              <p-button type="danger" round @click.native.prevent="deletePod(i)">
+                Delete {{ i }}
+              </p-button>
+            </b-card-text>
           </b-tab>
         </b-tabs>
     </div>
   </card>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
-      pods: 
-        [
-          {
-            name: "1400_Pod",
-            username: "aaaa",
-            password: "bbbb"
-          },
-          {
-            name: "Pod2",
-            username: "cccc",
-            password: "dddd"
-          },
-          {
-            name: "Pod3",
-            username: "cccc",
-            password: "dddd"
-          },
-          {
-            name: "Pod4",
-            username: "cccc",
-            password: "dddd"
-          },
-          {
-            name: "Pod5",
-            username: "cccc",
-            password: "dddd"
-          },
-        ]
+      pods: []
     };
+  },
+  mounted() {
+    this.loadPods()
+    this.$root.$on('loadPods', () => {
+      this.loadPods()
+    })
+  },
+  methods: {
+    loadPods() {
+      axios.post('https://bruharmy.sdc.cpp:8080/pods/view',
+        {
+          jwtToken: localStorage.getItem("jwtToken")
+        })
+      .then((response) => {
+        this.pods = response.data.message;
+      }).catch((error) => {
+        console.log(error)
+      });
+    },
+    deletePod(pod) {
+      axios.post('https://bruharmy.sdc.cpp:8080/pods/delete',
+        {
+          target: pod,
+          jwtToken: localStorage.getItem("jwtToken")
+        })
+        .then((response) => {
+            this.loadPods();
+      });
+    }
   },
 };
 </script>
