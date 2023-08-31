@@ -48,8 +48,10 @@ export default {
   },
   methods: {
     loadOptions() {
-      axios.get('https://bruharmy.sdc.cpp:8080/pods/templates')
-        .then((response) => {
+      axios.post('https://bruharmy.sdc.cpp:8080/pods/templates', {
+        jwtToken: localStorage.getItem("jwtToken")
+      })
+      .then((response) => {
             this.options = response.data.message;
       });
     },
