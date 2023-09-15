@@ -9,6 +9,14 @@
         :options="options"
         :placeholder="placeholder"
         >
+        <template #search="{attributes, events}">
+          <input
+            class="vs__search"
+            :required="!selected"
+            v-bind="attributes"
+            v-on="events"
+            />
+          </template>
       </v-select>
     </slot>
     <slot></slot>

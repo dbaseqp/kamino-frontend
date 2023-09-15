@@ -47,20 +47,19 @@ export default {
   },
   methods: {
     login() {
-      axios.post('https://bruharmy.sdc.cpp:8080/account/login', 
+      axios.post('https://bruharmy.sdc.cpp:8080/login', 
           { 
             username: this.username, 
             password: this.password 
           }
         ).then((response) => {
           console.log(response)
-          localStorage.setItem('jwtToken', response.data.message);
           this.$router.push({ name: 'dashboard' })
       }).catch((error) => {
         console.log(error)
         this.$notify(
           {
-            message: error.response.data.message,
+            message: error.response.data.error,
             type: 'danger',
             horizontalAlign: 'center',
             verticalAlign: 'bottom'

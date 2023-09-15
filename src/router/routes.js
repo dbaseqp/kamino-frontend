@@ -6,6 +6,7 @@ import NotFound from "@/pages/NotFoundPage.vue";
 import Home from "@/pages/Home.vue";
 import Login from "@/pages/Login.vue"
 import Register from "@/pages/Register.vue"
+import Logout from "@/pages/Logout.vue"
 
 // Admin pages
 import Dashboard from "@/pages/Dashboard.vue";
@@ -30,31 +31,33 @@ const routes = [
         path: "/register",
         name: "register",
         component: Register,
-      }
+      },
+      {
+        path: "/logout",
+        name: "logout",
+        component: Logout,
+      },
     ]
   },
   {
     path: "/dashboard",
-    redirect: "/dashboard/dashboard",
+    redirect: "/dashboard/",
     component: DashboardLayout,
     children: [
       {
-        path: "dashboard",
+        path: "/",
         name: "dashboard",
         component: Dashboard,
-        meta: {
-          authRequired: true
-        }
       },
       {
         path: "profile",
         name: "profile",
         component: UserProfile,
-        meta: {
-          authRequired: true
-        }
       }
-    ]
+    ],
+    meta: {
+      authRequired: true
+    }
   },
   { path: "*", component: NotFound },
 ];

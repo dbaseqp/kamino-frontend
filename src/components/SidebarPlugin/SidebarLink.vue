@@ -5,6 +5,7 @@
     class="nav-item"
     v-bind="$attrs"
     tag="li"
+    exact
   >
     <a class="nav-link">
       <slot>

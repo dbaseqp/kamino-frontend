@@ -65,7 +65,7 @@ export default {
       if (this.password != this.confirmPassword){
         return;
       }
-      axios.post('https://bruharmy.sdc.cpp:8080/account/register', 
+      axios.post('https://bruharmy.sdc.cpp:8080/register', 
           { 
             username: this.username, 
             password: this.password 
@@ -76,7 +76,7 @@ export default {
         console.log(error)
         this.$notify(
           {
-            message: error.response.data.message,
+            message: error.response.data.error,
             type: 'danger',
             horizontalAlign: 'center',
             verticalAlign: 'bottom'

@@ -11,25 +11,17 @@
     <!-- -->
     <div class="sidebar-wrapper" id="style-3">
       <div class="logo">
-        <a href="#" class="simple-text">
+        <router-link :to="{name: 'dashboard'}" class="simple-text">
           <div class="logo-img">
             <img src="@/assets/img/bruharmy.png" alt="" />
           </div>
           {{ title }}
-        </a>
+        </router-link>
       </div>
       <slot> </slot>
       <ul class="nav">
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
         <slot name="links">
-          <sidebar-link
-            v-for="(link, index) in sidebarLinks"
-            :key="index"
-            :to="link.path"
-            :name="link.name"
-            :icon="link.icon"
-          >
-          </sidebar-link>
         </slot>
       </ul>
       <moving-arrow :move-y="arrowMovePx"> </moving-arrow>
@@ -38,12 +30,11 @@
 </template>
 <script>
 import MovingArrow from "./MovingArrow.vue";
-import SidebarLink from "./SidebarLink";
 export default {
   props: {
     title: {
       type: String,
-      default: "Paper Dashboard",
+      default: "Kamino",
     },
     backgroundColor: {
       type: String,
@@ -67,10 +58,6 @@ export default {
         return acceptedValues.indexOf(value) !== -1;
       },
     },
-    sidebarLinks: {
-      type: Array,
-      default: () => [],
-    },
     autoClose: {
       type: Boolean,
       default: true,
@@ -85,7 +72,6 @@ export default {
   },
   components: {
     MovingArrow,
-    SidebarLink,
   },
   computed: {
     /**

@@ -14,10 +14,8 @@ router.beforeResolve((to, from, next) => {
   if (to.matched.some(record => record.meta.authRequired)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    axios.post('https://bruharmy.sdc.cpp:8080/account/auth', 
-      {
-        jwtToken: localStorage.getItem("jwtToken")
-      }).then(response => {
+    axios.get('https://bruharmy.sdc.cpp:8080/view/templates/preset')
+    .then(response => {
       next();
     }).catch(error => {
         next("login");

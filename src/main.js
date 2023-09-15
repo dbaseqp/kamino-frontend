@@ -24,11 +24,17 @@ import { BootstrapVue } from 'bootstrap-vue';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
 import VueNotify from 'vue-notifyjs'
 import 'vue-notifyjs/themes/default.css'
-Vue.use(VueNotify)
+import axios from 'axios';
 
+axios.defaults.withCredentials = true
+
+Vue.use(VueNotify)
 Vue.use(BootstrapVue)
+
+// Vue.use(BootstrapVue)
 Vue.use(PaperDashboard);
 
 /* eslint-disable no-new */

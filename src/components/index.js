@@ -1,6 +1,9 @@
 import FormGroupInput from "./Inputs/formGroupInput.vue";
 import FormGroupSelect from "./Inputs/formGroupSelect.vue";
 
+import Content from "./Content.vue"
+import Footer from "./ContentFooter.vue";
+
 import DropDown from "./Dropdown.vue";
 import PaperTable from "./PaperTable.vue";
 import Button from "./Button";
@@ -20,6 +23,8 @@ let components = {
   PaperTable,
   DropDown,
   SidebarPlugin,
+  Content,
+  Footer,
 };
 
 export default components;
@@ -34,4 +39,6 @@ export {
   DropDown,
   Button,
   SidebarPlugin,
+  Content,
+  Footer,
 };
