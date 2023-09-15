@@ -3,7 +3,7 @@
     <side-bar title="Kamino">
       <template slot="links">
         <sidebar-link :to="{ name: 'dashboard' }" name="Dashboard" icon="ti-panel" />
-        <sidebar-link :to="{ name: 'profile' }" name="Profile" icon="ti-user" />
+        <!-- <sidebar-link :to="{ name: 'profile' }" name="Profile" icon="ti-user" /> -->
         <sidebar-link :to="{ name: 'logout' }" name="Logout" icon="ti-share-alt" />
       </template>
       <mobile-menu>
