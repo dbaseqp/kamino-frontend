@@ -15,13 +15,18 @@ router.beforeResolve((to, from, next) => {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     axios.get('https://bruharmy.sdc.cpp:8080/view/templates/preset')
-    .then(response => {
-      next();
-    }).catch(error => {
+      .then(response => {
+        next();
+      }).catch(error => {
         next("login");
-    })
+      })
   } else {
-    next();
+    axios.get('https://bruharmy.sdc.cpp:8080/view/templates/preset')
+      .then(response => {
+        next("dashboard");
+      }).catch(error => {
+        next();
+      })
   }
 })
 
