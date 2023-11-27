@@ -63,9 +63,16 @@ export default {
   methods: {
     register() {
       if (this.password != this.confirmPassword){
+        this.$notify(
+          {
+            message: 'Passwords do not match.',
+            type: 'danger',
+            horizontalAlign: 'center',
+            verticalAlign: 'bottom'
+          });
         return;
       }
-      axios.post('https://bruharmy.sdc.cpp:8080/register', 
+      axios.post('{fqdn}:8080/register', 
           { 
             username: this.username, 
             password: this.password 
