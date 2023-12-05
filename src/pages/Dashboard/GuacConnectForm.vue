@@ -6,7 +6,7 @@
             </div>
         </div>
         <b-modal ref="form-modal" title="Build Your Custom Pod" :no-close-on-backdrop="true" scrollable>
-            <div v-if="!connect">
+            <div>
                 <b-form id="form-custom" @submit="doConnect()">
                     <div class="form-group">
                         <label for="scheme">Protocol</label>
@@ -61,7 +61,7 @@
                 </b-button>
             </template>
         </b-modal>
-        <guac-client v-else :query="query" :force-http="forceHttp"/>
+        <guac-client :query="query" :force-http="forceHttp"/>
     </card>
 </template>
 
